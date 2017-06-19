@@ -41,6 +41,7 @@ int main(int argc, char* argv[])
         }
 
         cout << "Loading data ... ";
+        cout.flush();
         ml::SensorData sd(filename);
         cout << "done!" << endl;
         cout << sd << endl;
