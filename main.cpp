@@ -24,6 +24,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 using namespace cv;
 
+typedef std::chrono::time_point<std::chrono::system_clock> Timepoint;
+typedef std::chrono::duration<double> Duration;
+typedef std::chrono::system_clock Clock;
+
 int main(int argc, char* argv[])
 {
 
@@ -43,6 +47,8 @@ int main(int argc, char* argv[])
 
         for (size_t i = 0; i < sd.m_frames.size(); i++) {
 
+            Timepoint t = Clock::now();
+
             //de-compress color and depth values
             ml::vec3uc* colorData = sd.decompressColorAlloc(i);
             unsigned short* depthData = sd.decompressDepthAlloc(i);
@@ -60,6 +66,10 @@ int main(int argc, char* argv[])
 
             free(colorData);
             free(depthData);
+
+            Duration d = Clock::now() - t;
+            cout << "Playback speed: " <<  1.0f / d.count() << "Hz\r";
+            cout.flush();
         }
 
         cout << endl;
