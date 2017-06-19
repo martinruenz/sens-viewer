@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     try {
         //non-cached read
         string filename;
-        if (argc >= 2) filename = string(argv[1]);
+        if (argc == 2) filename = string(argv[1]);
         else {
             cout << "use ./sens-viewer <filename>" << endl;
             return 1;
